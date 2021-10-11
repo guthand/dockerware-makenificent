@@ -29,6 +29,7 @@ endif
 # PHP linter
 DOCKER_PHP_LINTER_IMAGE = registry.guthand.com/guthand/infrastructure/docker-libary/php:linter
 PHP_LINTER_EXEC = @docker run -i --rm -v $$(pwd):/code -w /code ${DOCKER_PHP_LINTER_IMAGE}
+CACHE = .cache
 
 # Plugins
 PLUGIN_LIST = $(foreach plugin, $(filter-out $(SAMPLE_PLUGINS), $(wildcard $(PLUGINS_FOLDER)/*)), $(notdir $(plugin)))
