@@ -34,7 +34,7 @@ CACHE = .cache
 # Plugins
 PLUGIN_LIST = $(foreach plugin, $(filter-out $(SAMPLE_PLUGINS), $(wildcard $(PLUGINS_FOLDER)/*)), $(notdir $(plugin)))
 
-build-app-default: install storefront ## make build-app
+build-app-default: install storefront install-plugins download-src ## make build-app
 install-default: stop build start upload-configs upload-plugins change-permissions download-src ## make install
 reload-default: stop start copy-configs ## make reload
 storefront-default: delete-storefront build-storefront ## make storefront
