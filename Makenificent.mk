@@ -94,7 +94,7 @@ db-dump-default: ## make db-dump
 
 install-plugins-default: ## make install-plugins
 	${EXEC} bin/console plugin:refresh
-	$(foreach plugin, $(PLUGIN_LIST), ${EXEC} bin/console plugin:install -n --activate $(plugin))
+	$(foreach plugin, $(PLUGIN_LIST), ${EXEC} bin/console plugin:install -n --activate $(plugin);)
 	${EXEC} bin/console cache:clear
 	${EXEC} bin/build-storefront.sh
 	if [ -d "$(PLUGINS_FOLDER)/$(THEME_PLUGIN)" ]; \
