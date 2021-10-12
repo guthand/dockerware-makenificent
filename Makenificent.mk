@@ -98,9 +98,9 @@ install-plugins-default: ## make install-plugins
 	$(foreach plugin, $(PLUGIN_LIST), ${EXEC} bin/console plugin:install -n --activate $(plugin);)
 	${EXEC} bin/console cache:clear
 	${EXEC} bin/build-storefront.sh
-	if [ -d "$(PLUGINS_FOLDER)/$(THEME_PLUGIN)" ]; \
-		${EXEC} bin/console theme:change -n --all $(THEME_PLUGIN) \
-	endif
+	if [ -d "$(PLUGINS_FOLDER)/$(THEME_PLUGIN)" ]; then\
+		${EXEC} bin/console theme:change -n --all $(THEME_PLUGIN);\
+	fi
 
 upload-plugins-default: ## make upload-plugins
 	docker cp src/custom/plugins/ $(DOCKER_CONTAINER_NAME):/var/www/html/custom/.
