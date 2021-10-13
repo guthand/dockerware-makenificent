@@ -107,6 +107,9 @@ upload-plugins-default: ## make upload-plugins
 
 $(CACHE):
 	@mkdir -p .cache
+	
+update-php-linter-image:
+	docker pull $(DOCKER_PHP_LINTER_IMAGE)
 
 phpcs-default: ## make phpcs
 	${PHP_LINTER_EXEC} phpcs
