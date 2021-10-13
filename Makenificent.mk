@@ -35,7 +35,7 @@ CACHE = .cache
 PLUGIN_LIST = $(foreach plugin, $(filter-out $(SAMPLE_PLUGINS), $(wildcard $(PLUGINS_FOLDER)/*)), $(notdir $(plugin)))
 
 build-app-default: install storefront install-plugins download-src ## make build-app
-install-default: stop build start upload-configs upload-plugins change-permissions download-src ## make install
+install-default: stop build start copy-configs upload-plugins change-permissions download-src ## make install
 reload-default: stop start copy-configs ## make reload
 storefront-default: delete-storefront build-storefront ## make storefront
 
@@ -61,13 +61,9 @@ destroy-default: ## make destroy
 change-permissions-default: ## make change-permissions
 	${EXEC} bash -c "sudo chown -R dockware:www-data /var/www/html"
 
-copy-configs-default: ## make copy-configs
-	cp ./sandbox/.env src/.env
-	cp ./sandbox/config/packages/* src/config/packages/.
-
-upload-configs-default: ## make upload-configs
-	docker cp sandbox/.env  $(DOCKER_CONTAINER_NAME):/var/www/html/.
-	docker cp sandbox/config/packages  $(DOCKER_CONTAINER_NAME):/var/www/html/config
+copy-configs-default: ## make upload-configs
+	if [ -f "sandbox/.env" ]; then docker cp sandbox/.env  $(DOCKER_CONTAINER_NAME):/var/www/html/.; fi
+	if [ -d "sandbox/config/packages" ]; then docker cp sandbox/config/packages  $(DOCKER_CONTAINER_NAME):/var/www/html/config; fi
 
 download-src-default: ## make download-src
 	docker cp $(DOCKER_CONTAINER_NAME):/var/www/html/. ./src
