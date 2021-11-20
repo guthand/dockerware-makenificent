@@ -119,6 +119,8 @@ phpcs-fix-default: $(CACHE) ## make phpcs-fix
 psalm-default: $(CACHE) ## make psalm
 	${PHP_LINTER_EXEC} psalm --show-info=false
 
+php-lint-default: phpcs phpcbf phpcs-fix psalm ## make php-lint
+
 .PHONY: help
 help:
 	@echo "Makenificent.mk"
