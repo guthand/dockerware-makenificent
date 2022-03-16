@@ -9,6 +9,7 @@ THEME_DIR ?= public/theme
 THEME_PLUGIN ?=
 PLUGINS_FOLDER = src/custom/plugins
 SAMPLE_PLUGINS = $(PLUGINS_FOLDER)/DockwareSamplePlugin $(PLUGINS_FOLDER)/SwagPlatformDemoData
+EXCLUDE_PLUGINS =
 
 DOCKER_SERVICE_NAME ?= project
 DOCKER_CONTAINER_NAME ?= project-dev
@@ -32,7 +33,7 @@ PHP_LINTER_EXEC = @docker run -i --rm -v $$(pwd):/code -w /code ${DOCKER_PHP_LIN
 CACHE = .cache
 
 # Plugins
-PLUGIN_LIST = $(foreach plugin, $(filter-out $(SAMPLE_PLUGINS), $(wildcard $(PLUGINS_FOLDER)/*)), $(notdir $(plugin)))
+PLUGIN_LIST = $(foreach plugin, $(filter-out $(SAMPLE_PLUGINS) $(EXCLUDE_PLUGINS), $(wildcard $(PLUGINS_FOLDER)/*)), $(notdir $(plugin)))
 
 build-app-default: install storefront install-plugins download-src ## make build-app
 install-default: stop build start copy-configs upload-plugins change-permissions download-src ## make install
